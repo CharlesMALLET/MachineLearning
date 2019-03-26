@@ -1,12 +1,13 @@
 package execution;
  
-import view.GraphicInterface;
+import view.GraphicInterfaceSettings;
 
 public class ExecuteProgram {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new GraphicInterface();
+		
+		new GraphicInterfaceSettings();
 	}
 
 }
