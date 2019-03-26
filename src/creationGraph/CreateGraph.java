@@ -8,7 +8,7 @@ import weka.core.converters.ConverterUtils.DataSource;
 public class CreateGraph {
 	
 	public void createInstances() throws Exception {
-		DataSource source = new DataSource("/some/where/data.arff");
+		DataSource source = new DataSource("../optdigits.arff");
 		Instances data = source.getDataSet();
 		// setting class attribute if the data format does not provide this information
 		// For example, the XRFF format saves the class attribute information as well
