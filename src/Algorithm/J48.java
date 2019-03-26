@@ -1,14 +1,13 @@
-package creationGraph;
+package Algorithm;
 
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
-
-
-public class CreateGraph {
+public class J48 {	
+	private DataSource source ;
 	
-	public void createInstances() throws Exception {
-		DataSource source = new DataSource("/some/where/data.arff");
+	public J48(String name) throws Exception {
+		source = new DataSource(name);
 		Instances data = source.getDataSet();
 		// setting class attribute if the data format does not provide this information
 		// For example, the XRFF format saves the class attribute information as well
