@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class GraphicInterfaceSettings extends JFrame{
@@ -36,11 +37,11 @@ public class GraphicInterfaceSettings extends JFrame{
 		lblList = new JLabel("Liste d'Algorithmes : ");
 		add(lblList);
 		listOfAlgorithm = new JList<String>(donnees);
-		add(listOfAlgorithm);
+		add(new JScrollPane(listOfAlgorithm));
 		btnValidate = new JButton("Exécuter");
 		btnValidate.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
-				  // 
+				  new GraphicInterfaceResult();
 				 }
 			});
 		add(btnValidate);
