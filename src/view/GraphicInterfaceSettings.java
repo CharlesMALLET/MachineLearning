@@ -46,6 +46,7 @@ public class GraphicInterfaceSettings extends JFrame{
 		btnValidate = new JButton("Exécuter");
 		btnValidate.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
+
 				 	switch(listOfAlgorithm.getSelectedValue()) {
 				 	case "J48":
 				 		try {
