@@ -8,6 +8,7 @@ public class ExecuteProgram {
 		// TODO Auto-generated method stub
 		
 		new GraphicInterfaceSettings();
+		
 	}
 
 }

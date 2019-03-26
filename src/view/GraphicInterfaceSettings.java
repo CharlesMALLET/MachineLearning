@@ -11,6 +11,11 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import Algorithm.Boosting;
+import Algorithm.J48;
+import Algorithm.RandomForest;
+import Algorithm.kNN;
+
 public class GraphicInterfaceSettings extends JFrame{
 
 	private static final long serialVersionUID = 8828797684183958811L;
@@ -41,7 +46,42 @@ public class GraphicInterfaceSettings extends JFrame{
 		btnValidate = new JButton("Exécuter");
 		btnValidate.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
-				  new GraphicInterfaceResult();
+
+				 	switch(listOfAlgorithm.getSelectedValue()) {
+				 	case "J48":
+				 		try {
+							J48 algorithmJ48 = new J48(tfImport.getText());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				 		break;
+				 	case "Boosting":
+				 		try {
+							Boosting algorithmBoosting = new Boosting(tfImport.getText());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				 		break;
+				 	case "k-NN":
+				 		try {
+							kNN algorithmkNN = new kNN(tfImport.getText());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				 		break;
+				 	case "RandomForest":
+				 		try {
+							RandomForest algorithmRandomForest = new RandomForest(tfImport.getText());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				 		break;
+				 	}
+				 	new GraphicInterfaceResult();
 				 }
 			});
 		add(btnValidate);
