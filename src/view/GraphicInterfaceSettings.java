@@ -3,6 +3,8 @@ package view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Algorithm.Boosting;
-import Algorithm.J48;
+import Algorithm.AlgoJ48;
 import Algorithm.RandomForest;
 import Algorithm.kNN;
 
@@ -25,7 +27,8 @@ public class GraphicInterfaceSettings extends JFrame{
 	private JList<String> listOfAlgorithm;
 	private JButton btnValidate;
 	private JButton btnCancel;
-	private String [] donnees = {"J-48","k-NN","Boosting","Random Forest"};
+	private String [] donnees = {"J48","k-NN","Boosting","Random Forest"};
+	private static Map<Integer, Double> results = new HashMap<Integer, Double>();
 	
 	public GraphicInterfaceSettings() {
 		
@@ -46,42 +49,7 @@ public class GraphicInterfaceSettings extends JFrame{
 		btnValidate = new JButton("Exécuter");
 		btnValidate.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
-
-				 	switch(listOfAlgorithm.getSelectedValue()) {
-				 	case "J48":
-				 		try {
-							J48 algorithmJ48 = new J48(tfImport.getText());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				 		break;
-				 	case "Boosting":
-				 		try {
-							Boosting algorithmBoosting = new Boosting(tfImport.getText());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				 		break;
-				 	case "k-NN":
-				 		try {
-							kNN algorithmkNN = new kNN(tfImport.getText());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				 		break;
-				 	case "RandomForest":
-				 		try {
-							RandomForest algorithmRandomForest = new RandomForest(tfImport.getText());
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				 		break;
-				 	}
-				 	new GraphicInterfaceResult();
+				 	GraphicInterfaceSettings.onExecution(listOfAlgorithm.getSelectedValue(), tfImport.getText());
 				 }
 			});
 		add(btnValidate);
@@ -94,8 +62,50 @@ public class GraphicInterfaceSettings extends JFrame{
 			});
 		add(btnCancel);
 		
+		this.setLocationRelativeTo(null);
 		setVisible(true);
 		
+	}
+	
+	public static void onExecution(String algo, String filename) {
+		switch(algo) {
+	 	case "J48":
+	 		try {
+				AlgoJ48 algorithmJ48 = new AlgoJ48(filename);
+				int pas = 20;
+				results = algorithmJ48.evaluation(pas);
+				//System.out.println(results.toString());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	 		break;
+	 	case "Boosting":
+	 		try {
+				Boosting algorithmBoosting = new Boosting(filename);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	 		break;
+	 	case "k-NN":
+	 		try {
+				kNN algorithmkNN = new kNN(filename);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	 		break;
+	 	case "RandomForest":
+	 		try {
+				RandomForest algorithmRandomForest = new RandomForest(filename);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	 		break;
+	 	}
+	 	new GraphicInterfaceResult(results);
 	}
 	
 	
