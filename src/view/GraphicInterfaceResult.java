@@ -29,7 +29,7 @@ public class GraphicInterfaceResult extends JFrame{
 	
 	private JPanel resultsView = new JPanel();
 	
-	private Map<Integer, Double> results = new HashMap<Integer, Double>();
+	private static Map<Integer, Double> results = new HashMap<Integer, Double>();
 
 	public GraphicInterfaceResult(Map<Integer, Double> results){
 		this.results = results;
@@ -74,8 +74,21 @@ public class GraphicInterfaceResult extends JFrame{
 		btnPanel.setLayout(new GridLayout(3,1));
 		
 		buttonChart = new JButton("Afficher le graphique");
+		buttonChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Afficher le graphique");
+				Chart chart = new Chart(GraphicInterfaceResult.results);
+			}
+		});
 		
 		buttonCsv = new JButton("Exporter au format CSV");
+		buttonCsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Exporter au format Csv");
+			}
+		});
 		
 		buttonClose = new JButton("Fermer");
 		buttonClose.addActionListener(new ActionListener() {
