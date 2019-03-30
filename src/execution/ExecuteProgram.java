@@ -1,5 +1,8 @@
 package execution;
- 
+
+import java.util.Map;
+
+import Algorithm.AlgoJ48;
 import view.GraphicInterfaceSettings;
 
 public class ExecuteProgram {
@@ -8,7 +11,6 @@ public class ExecuteProgram {
 		// TODO Auto-generated method stub
 		
 		new GraphicInterfaceSettings();
-		
 	}
 
 }
