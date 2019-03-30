@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,10 +20,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import importExport.ExportIntoCSV;
+
 public class GraphicInterfaceResult extends JFrame{
 
 	private static final long serialVersionUID = -5677204364423194016L;
 	
+	private String nameFile;
 	private JButton buttonClose;
 	private JButton buttonChart;
 	private JButton buttonCsv;
@@ -31,31 +36,29 @@ public class GraphicInterfaceResult extends JFrame{
 	
 	private static Map<Integer, Double> results = new HashMap<Integer, Double>();
 
-	public GraphicInterfaceResult(Map<Integer, Double> results){
+	public GraphicInterfaceResult(Map<Integer, Double> results, String nameFile){
+		this.nameFile = nameFile;
 		this.results = results;
+		Vector<String> headers = new Vector<String>();
+		Vector<Vector<Object>> donnees = new Vector<>();
 		
 		setTitle("Algorithme de Recherche Weka");
 		setSize(500,500);
 		setLayout(new BorderLayout());
-		//setLayout(new GridLayout(2,1,1,1));
 		
 		if (results.size() != 0) {
 			// Tableau de résultats
-			Vector<String> headers = new Vector<String>();
-			headers.add("Min exemples par feuille");
-			headers.add("Taux d'erreur");
+			headers.add("Minimum d'exemples par feuille");
+			headers.add("Taux d'erreurs");
 			
 			// Tri par la clé
 			Map<Integer, Double> treeMap = new TreeMap<Integer, Double>(results);
-			
-			Vector<Vector<Object>> donnees = new Vector<>();
-			
+				
 			for (Entry<Integer, Double> entry : treeMap.entrySet()) {
 				Vector<Object> v = new Vector<>();
 				v.add(entry.getKey());
 				v.add(entry.getValue());
 				donnees.add(v);
-				//System.out.println(v.toString());
 			}
 		
 			JTable table = new JTable(donnees, headers);			
@@ -86,14 +89,22 @@ public class GraphicInterfaceResult extends JFrame{
 		buttonCsv.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("Exporter au format Csv");
+				System.out.println("Exporter au format CSV");
+				try {
+					ExportIntoCSV export = new ExportIntoCSV(getNameFile(), headers,donnees);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
 		buttonClose = new JButton("Fermer");
 		buttonClose.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
-				  //dispose();
 				  System.exit(0);
 				 }
 			});
@@ -105,4 +116,10 @@ public class GraphicInterfaceResult extends JFrame{
 		this.setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
+	String getNameFile()
+	{
+		return this.nameFile;
+	}
+	
 }

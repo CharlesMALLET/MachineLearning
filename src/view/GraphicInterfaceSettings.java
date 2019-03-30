@@ -27,7 +27,8 @@ public class GraphicInterfaceSettings extends JFrame{
 	private JList<String> listOfAlgorithm;
 	private JButton btnValidate;
 	private JButton btnCancel;
-	private String [] donnees = {"J48","k-NN","Boosting","Random Forest"};
+	//private String [] donnees = {"J48","k-NN","Boosting","Random Forest"};
+	private String [] donnees = {"J48"};
 	private static Map<Integer, Double> results = new HashMap<Integer, Double>();
 	
 	public GraphicInterfaceSettings() {
@@ -50,13 +51,13 @@ public class GraphicInterfaceSettings extends JFrame{
 		btnValidate.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
 				 	GraphicInterfaceSettings.onExecution(listOfAlgorithm.getSelectedValue(), tfImport.getText());
+				 	dispose();
 				 }
 			});
 		add(btnValidate);
 		btnCancel = new JButton("Fermer");
 		btnCancel.addActionListener(new ActionListener() {
 			 public void actionPerformed (ActionEvent e) {
-				  //dispose();
 				  System.exit(0);
 				 }
 			});
@@ -67,11 +68,11 @@ public class GraphicInterfaceSettings extends JFrame{
 		
 	}
 	
-	public static void onExecution(String algo, String filename) {
+	public static void onExecution(String algo, String fileName) {
 		switch(algo) {
 	 	case "J48":
 	 		try {
-				AlgoJ48 algorithmJ48 = new AlgoJ48(filename);
+				AlgoJ48 algorithmJ48 = new AlgoJ48(fileName);
 				int pas = 20;
 				results = algorithmJ48.evaluation(pas);
 				//System.out.println(results.toString());
@@ -80,7 +81,7 @@ public class GraphicInterfaceSettings extends JFrame{
 				e1.printStackTrace();
 			}
 	 		break;
-	 	case "Boosting":
+	 	/*case "Boosting":
 	 		try {
 				Boosting algorithmBoosting = new Boosting(filename);
 			} catch (Exception e1) {
@@ -103,9 +104,9 @@ public class GraphicInterfaceSettings extends JFrame{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	 		break;
+	 		break;*/
 	 	}
-	 	new GraphicInterfaceResult(results);
+	 	new GraphicInterfaceResult(results, fileName);
 	}
 	
 	
