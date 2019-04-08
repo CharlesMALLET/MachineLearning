@@ -16,14 +16,18 @@ public class AlgoJ48 {
 		source = new DataSource(name);
 	}
 	
-	public Map<Integer, Double> evaluation(int pas) {
+	public Map<Integer, Double> evaluation() {
 		Map<Integer, Double> results = new HashMap<Integer, Double>();
 		try {
 			Instances data = this.source.getDataSet();
 			if (data.classIndex() == -1) {
 				data.setClassIndex(data.numAttributes() - 1);
 			}
+			
 			int n = data.size();
+			int limite = (int) (n * 0.1);
+			int pas = limite / 10;
+			
 			J48 tree = new J48();
 			for (int i = 2 ; i < n*0.1 ; i = i + pas) {
 				tree.setMinNumObj(i);

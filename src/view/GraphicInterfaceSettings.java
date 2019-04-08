@@ -73,8 +73,7 @@ public class GraphicInterfaceSettings extends JFrame{
 	 	case "J48":
 	 		try {
 				AlgoJ48 algorithmJ48 = new AlgoJ48(fileName);
-				int pas = 20;
-				results = algorithmJ48.evaluation(pas);
+				results = algorithmJ48.evaluation();
 				//System.out.println(results.toString());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
